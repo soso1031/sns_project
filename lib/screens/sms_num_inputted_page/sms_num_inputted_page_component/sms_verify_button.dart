@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:two_sns/class/sms_verify.dart';
+import 'package:two_sns/provider/inputted_sms_num_provider.dart';
 import 'package:two_sns/res/color_palette.dart';
 import 'package:two_sns/res/textStyle/iOS/button_text_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,23 +33,30 @@ class _SmsVerifyButtonState extends ConsumerState<SmsVerifyButton>
 
   @override
   Widget build(BuildContext context) {
+    SmsVerify smsVerify = ref.watch(smsNumNotifierProvider);
     return InkWell(
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      onTap: isTaped
+      onTap: isTaped || smsVerify.inputtedNum.length != 6
           ? null
           : () async {
               setState(() {
                 isTaped = true;
               });
               HapticFeedback.mediumImpact();
-              await Future.delayed(const Duration(seconds: 1));
+              await ref.read(smsNumNotifierProvider.notifier).sendSmsNum(true);
+
+              ///todo:SMS認証の成否によって処理を分ける
+              if (ref.watch(smsNumNotifierProvider).isVerify) {
+                // ignore: use_build_context_synchronously
+                context.push('/account_create');
+              } else {
+                setState(() {
+                  isTaped = false;
+                });
+              }
               // await _animationController.forward();
               // await _animationController.reverse();
-
-              setState(() {
-                isTaped = false;
-              });
             },
       onHighlightChanged: (isHighlighted) {
         isHighlighted
@@ -68,64 +78,50 @@ class _SmsVerifyButtonState extends ConsumerState<SmsVerifyButton>
               ),
             ),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 120),
-          curve: Curves.easeOut,
-          padding: isTaped ? null : const EdgeInsets.only(left: 20, right: 13),
-          height: 58,
-          width: isTaped ? 58 : 156,
+          duration: const Duration(milliseconds: 60),
           decoration: BoxDecoration(
-            //todo:タップできるかどうかの判別
-            color: true ? kWhite : kGrey800,
+            color: smsVerify.inputtedNum.length == 6 ? kWhite : kGrey800,
             borderRadius: BorderRadius.circular(16),
           ),
-          child: isTaped
-              ? const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: CupertinoActivityIndicator(
-                    color: kGrey900,
-                  ),
-                )
-              : SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  child: SizedBox(
-                    width: 123,
-                    child: Row(
-                      children: [
-                        const Text(
-                          '認証',
-                          style: largeButtonTextBlack,
-                        ),
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 0.5),
-                          child: SvgPicture.asset(
-                            'assets/icons/button_arrow_right.svg',
-                            colorFilter:
-                                const ColorFilter.mode(kBlack, BlendMode.srcIn),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            curve: Curves.easeOut,
+            padding:
+                isTaped ? null : const EdgeInsets.only(left: 20, right: 13),
+            height: 58,
+            width: isTaped ? 58 : 156,
+            child: isTaped
+                ? const Padding(
+                    padding: EdgeInsets.all(20),
+                    child: CupertinoActivityIndicator(
+                      color: kGrey900,
+                    ),
+                  )
+                : SingleChildScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: SizedBox(
+                      width: 123,
+                      child: Row(
+                        children: [
+                          const Text(
+                            '認証',
+                            style: largeButtonTextBlack,
                           ),
-                        ),
-                      ],
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 0.5),
+                            child: SvgPicture.asset(
+                              'assets/icons/button_arrow_right.svg',
+                              colorFilter: const ColorFilter.mode(
+                                  kBlack, BlendMode.srcIn),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-          // : Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       const Text(
-          //         '認証',
-          //         style: largeButtonTextBlack,
-          //       ),
-          //       Padding(
-          //         padding: const EdgeInsets.only(top: 0.5),
-          //         child: SvgPicture.asset(
-          //           'assets/icons/button_arrow_right.svg',
-          //           colorFilter:
-          //               const ColorFilter.mode(kBlack, BlendMode.srcIn),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
+          ),
         ),
       ),
     );

@@ -14,8 +14,8 @@ class AccountVerifyTextFieldArea extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final phoneNumProvider =
-        ref.watch(inputtedPhoneNumProvider.notifier); // 変更のとき使う
-    String inputtedText = ref.watch(inputtedPhoneNumProvider); // 表示のとき使う
+        ref.watch(phoneNumNotifierProvider.notifier); // 変更のとき使う
+    String inputtedText = ref.watch(phoneNumNotifierProvider); // 表示のとき使う
 
     return Stack(
       children: [

@@ -1,10 +1,12 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:two_sns/res/color_palette.dart';
 import 'package:two_sns/res/textStyle/iOS/text_style_jp.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:two_sns/screens/sms_num_inputted_page/sms_num_inputted_page_component/sms_num_text_field_area.dart';
+import 'package:two_sns/screens/sms_num_inputted_page/sms_num_inputted_page_component/sms_resend_timer.dart';
 import 'package:two_sns/screens/sms_num_inputted_page/sms_num_inputted_page_component/sms_verify_button.dart';
-import 'package:two_sns/ui_component/my_custom_components/tap_shrink_button.dart';
+import 'package:two_sns/screens/sms_num_inputted_page/sms_num_inputted_page_component/sms_verify_error_text.dart';
+import 'package:two_sns/ui_component/button/navigate_pop_button.dart';
 
 class SmsNumInputtedPage extends StatelessWidget {
   const SmsNumInputtedPage({super.key});
@@ -14,16 +16,16 @@ class SmsNumInputtedPage extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: kBlack,
+        backgroundColor: kAppBackGround,
         body: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           behavior: HitTestBehavior.opaque,
-          child: SafeArea(
+          child: const SafeArea(
               child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Stack(
               children: [
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 48),
@@ -37,37 +39,20 @@ class SmsNumInputtedPage extends StatelessWidget {
                       style: t3GreyJP,
                     ),
                     SizedBox(height: 39),
+                    SmsNumTextFieldArea(),
+                    SmsVerifyErrorText(),
+                    SmsResendTimer(),
                   ],
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 24.0),
+                    padding: EdgeInsets.only(bottom: 24.0),
                     child: Row(
                       children: [
-                        OneTapShrinkButton(
-                          duration: const Duration(milliseconds: 120),
-                          shrinkSize: 0.94,
-                          onPressedCallback: () async {
-                            await Future.delayed(
-                                const Duration(milliseconds: 80));
-                            context.pop();
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(17),
-                            height: 58,
-                            width: 58,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF1D1C1F),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: SvgPicture.asset(
-                              'assets/icons/button_arrow_left.svg',
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        const SmsVerifyButton()
+                        NavigatePopButton(),
+                        Spacer(),
+                        SmsVerifyButton()
                       ],
                     ),
                   ),

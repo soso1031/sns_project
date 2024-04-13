@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:two_sns/provider/inputted_phone_num_provider.dart';
+import 'package:two_sns/provider/inputted_sms_num_provider.dart';
 import 'package:two_sns/ui_component/button/important_decision_button.dart';
 
 class SendPhoneNumberButton extends ConsumerWidget {
@@ -12,7 +13,7 @@ class SendPhoneNumberButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String inputtedText = ref.watch(inputtedPhoneNumProvider);
+    String inputtedText = ref.watch(phoneNumNotifierProvider);
     return Row(
       children: [
         ImportantDecisionButtonWithDisable(
@@ -24,6 +25,7 @@ class SendPhoneNumberButton extends ConsumerWidget {
               ? () async {
                   HapticFeedback.mediumImpact();
                   await Future.delayed(const Duration(milliseconds: 80));
+                  ref.read(smsNumNotifierProvider.notifier).resetVerifyData();
                   context.push('/sms_inputted');
                 }
               : null,

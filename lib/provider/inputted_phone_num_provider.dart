@@ -2,10 +2,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 ///電話番号の入力状況を状態管理で把握
-class InputtedPhoneNumNotifier extends StateNotifier<String> {
-  InputtedPhoneNumNotifier() : super('');
+///NotifierProvider
+final phoneNumNotifierProvider =
+    NotifierProvider<PhoneNumNotifier, String>(PhoneNumNotifier.new);
 
-  //現在の表示ページが変更
+class PhoneNumNotifier extends Notifier<String> {
+  @override
+  String build() {
+    // Inside "build", we return the initial state of the counter.
+    return '';
+  }
+
+  //NotifierにTextEditingControllerを管理させる
+  TextEditingController controller = TextEditingController();
+
+  //入力内容が変更
   void changeInputtedText(String newInput) {
     state = newInput;
   }
@@ -15,12 +26,4 @@ class InputtedPhoneNumNotifier extends StateNotifier<String> {
     controller.clear();
     state = '';
   }
-
-  //NotifierにTextEditingControllerを管理
-  TextEditingController controller = TextEditingController();
 }
-
-final inputtedPhoneNumProvider =
-    StateNotifierProvider<InputtedPhoneNumNotifier, String>((ref) {
-  return InputtedPhoneNumNotifier();
-});

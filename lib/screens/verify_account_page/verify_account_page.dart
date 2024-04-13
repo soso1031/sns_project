@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:two_sns/res/color_palette.dart';
 import 'package:two_sns/res/textStyle/iOS/text_style_jp.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:two_sns/screens/verify_account_page/verify_account_page_component/account_verify_text_field_area.dart';
 import 'package:two_sns/screens/verify_account_page/verify_account_page_component/send_phone_number_button.dart';
-import 'package:two_sns/ui_component/my_custom_components/tap_shrink_button.dart';
+import 'package:two_sns/ui_component/button/navigate_pop_button.dart';
 
 class VerifyAccountPage extends StatelessWidget {
   const VerifyAccountPage({super.key});
@@ -15,16 +13,16 @@ class VerifyAccountPage extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: kBlack,
+        backgroundColor: kAppBackGround,
         body: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           behavior: HitTestBehavior.opaque,
-          child: SafeArea(
+          child: const SafeArea(
               child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Stack(
               children: [
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 48),
@@ -44,32 +42,12 @@ class VerifyAccountPage extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 24.0),
+                    padding: EdgeInsets.only(bottom: 24.0),
                     child: Row(
                       children: [
-                        OneTapShrinkButton(
-                          duration: const Duration(milliseconds: 120),
-                          shrinkSize: 0.94,
-                          onPressedCallback: () async {
-                            await Future.delayed(
-                                const Duration(milliseconds: 80));
-                            context.pop();
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(17),
-                            height: 58,
-                            width: 58,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF1D1C1F),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: SvgPicture.asset(
-                              'assets/icons/button_arrow_left.svg',
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        const SendPhoneNumberButton()
+                        NavigatePopButton(),
+                        Spacer(),
+                        SendPhoneNumberButton()
                       ],
                     ),
                   ),

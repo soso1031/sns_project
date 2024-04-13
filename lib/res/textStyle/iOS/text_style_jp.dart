@@ -19,3 +19,29 @@ const t3GreyJP = TextStyle(
   height: 1.5,
   color: kGrey300,
 );
+
+///Text-sub-description
+const t5GreyJP = TextStyle(
+  fontFamily: "Hiragino Sans",
+  decoration: TextDecoration.none,
+  fontSize: 12.0,
+  fontWeight: FontWeight.w400,
+  color: kGrey600,
+);
+
+const t5LightGreyJP = TextStyle(
+  fontFamily: "Hiragino Sans",
+  decoration: TextDecoration.none,
+  fontSize: 12.0,
+  fontWeight: FontWeight.w400,
+  color: kGrey300,
+);
+
+///Text-sub-description
+const t5NotificationJP = TextStyle(
+  fontFamily: "Hiragino Sans",
+  decoration: TextDecoration.none,
+  fontSize: 12.0,
+  fontWeight: FontWeight.w400,
+  color: kNotificationRed,
+);
