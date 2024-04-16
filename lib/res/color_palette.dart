@@ -27,3 +27,5 @@ const kNotificationRed = Color(0xFFFF5252);
 //AppBackgroundBlack
 // const kAppBackGround = Color(0xFF171717);
 const kAppBackGround = Color(0xFF000000);
+
+const kGreyComponents = Color(0xFF191919);

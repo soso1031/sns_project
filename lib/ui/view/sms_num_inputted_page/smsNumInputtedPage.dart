@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:two_sns/res/color_palette.dart';
 import 'package:two_sns/res/textStyle/iOS/text_style_jp.dart';
-import 'package:two_sns/screens/sms_num_inputted_page/sms_num_inputted_page_component/sms_num_text_field_area.dart';
-import 'package:two_sns/screens/sms_num_inputted_page/sms_num_inputted_page_component/sms_resend_timer.dart';
-import 'package:two_sns/screens/sms_num_inputted_page/sms_num_inputted_page_component/sms_verify_button.dart';
-import 'package:two_sns/screens/sms_num_inputted_page/sms_num_inputted_page_component/sms_verify_error_text.dart';
+import 'package:two_sns/ui/view/sms_num_inputted_page/sms_num_inputted_page_component/sms_num_text_field_area.dart';
+import 'package:two_sns/ui/view/sms_num_inputted_page/sms_num_inputted_page_component/sms_resend_timer.dart';
+import 'package:two_sns/ui/view/sms_num_inputted_page/sms_num_inputted_page_component/sms_verify_button.dart';
+import 'package:two_sns/ui/view/sms_num_inputted_page/sms_num_inputted_page_component/sms_verify_error_text.dart';
 import 'package:two_sns/ui_component/button/navigate_pop_button.dart';
 
 class SmsNumInputtedPage extends StatelessWidget {

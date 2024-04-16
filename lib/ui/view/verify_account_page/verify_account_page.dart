@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:two_sns/res/color_palette.dart';
 import 'package:two_sns/res/textStyle/iOS/text_style_jp.dart';
-import 'package:two_sns/screens/verify_account_page/verify_account_page_component/account_verify_text_field_area.dart';
-import 'package:two_sns/screens/verify_account_page/verify_account_page_component/send_phone_number_button.dart';
+import 'package:two_sns/ui/view/verify_account_page/verify_account_page_component/account_verify_text_field_area.dart';
+import 'package:two_sns/ui/view/verify_account_page/verify_account_page_component/send_phone_number_button.dart';
 import 'package:two_sns/ui_component/button/navigate_pop_button.dart';
 
 class VerifyAccountPage extends StatelessWidget {

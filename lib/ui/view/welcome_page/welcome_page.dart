@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:two_sns/screens/welcome_page/welcome_page_components/welcome_page_view.dart';
-import 'package:two_sns/screens/welcome_page/welcome_page_components/welcome_page_indicator.dart';
-import 'package:two_sns/screens/welcome_page/welcome_page_components/welcome_page_action_area.dart';
+import 'package:two_sns/ui/view/welcome_page/welcome_page_components/welcome_page_view.dart';
+import 'package:two_sns/ui/view/welcome_page/welcome_page_components/welcome_page_indicator.dart';
+import 'package:two_sns/ui/view/welcome_page/welcome_page_components/welcome_page_action_area.dart';
 
 ///初回起動時にログインorサインアップ
 class WelcomePage extends StatelessWidget {
